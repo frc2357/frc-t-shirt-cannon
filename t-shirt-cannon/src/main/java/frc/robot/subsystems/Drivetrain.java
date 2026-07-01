@@ -52,8 +52,8 @@ public class Drivetrain extends SubsystemBase {
     rightLeader.getEncoder().getPosition());
 
 DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim(KitbotMotor.kSingleNEOPerSide,
-  KitbotGearing.k10p71, 
-  KitbotWheelSize.kSixInch,
+  KitbotGearing.k5p95, 
+  KitbotWheelSize.kTenInch,
   null);
 
   // The XRP has the left and right motors set to
@@ -192,8 +192,8 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
   public void periodic() {
     // This method will be called once per scheduler run
     m_odometry.update(m_gyro.getRotation2d(),
-        leftLeader.getEncoder().getPosition(),
-        rightLeader.getEncoder().getPosition());
+        leftLeader.getEncoder().getPosition() * 1.91475,
+        rightLeader.getEncoder().getPosition() * 1.91475);
     m_field.setRobotPose(m_odometry.getPoseMeters());
   }
 

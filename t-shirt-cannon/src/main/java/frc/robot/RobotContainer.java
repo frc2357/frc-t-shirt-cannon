@@ -40,6 +40,11 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    configureButtonBindings();
+  }
+
+  private void configureButtonBindings() {
+    m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
   }
 
   /**
