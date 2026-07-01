@@ -31,8 +31,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Drivetrain extends SubsystemBase {
-  final SparkMax leftLeader = new SparkMax(1, MotorType.kBrushless);
-  final SparkMax rightLeader = new SparkMax(2, MotorType.kBrushless);
+  final SparkMax leftLeader = new SparkMax(1, MotorType.kBrushed);
+  final SparkMax rightLeader = new SparkMax(2, MotorType.kBrushed);
 
   DCMotor leftGearbox = DCMotor.getNEO(1);
   DCMotor rightGearbox = DCMotor.getNEO(1);
