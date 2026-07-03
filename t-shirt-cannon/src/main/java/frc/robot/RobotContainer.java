@@ -8,12 +8,16 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.subsystems.Actuator;
+import frc.robot.subsystems.ActuatorDown;
+import frc.robot.subsystems.ActuatorUp;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -26,6 +30,11 @@ public class RobotContainer {
 
   private final Drivetrain m_drivetrain = new Drivetrain();
   private final Joystick m_controller = new Joystick(0);
+
+  private Actuator m_actuator = new Actuator();
+
+  private ActuatorUp m_actuator_up = new ActuatorUp(m_actuator);
+  private ActuatorDown m_actuator_down = new ActuatorDown(m_actuator);
 
   public double setPoint = 1.0;
 
@@ -45,6 +54,14 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
+
+    JoystickButton joystickAButton = new JoystickButton(m_controller, 1);
+    joystickAButton
+        .whileTrue(new ActuatorUp(m_actuator));
+
+    JoystickButton joystickBButton = new JoystickButton(m_controller, 2);
+    joystickBButton
+        .whileTrue(new ActuatorDown(m_actuator));
   }
 
   /**
