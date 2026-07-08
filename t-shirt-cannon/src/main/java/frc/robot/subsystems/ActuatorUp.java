@@ -1,9 +1,6 @@
 package frc.robot.subsystems;
 
-import com.revrobotics.spark.SparkMax;
-
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 public class ActuatorUp extends Command{
 
@@ -14,7 +11,7 @@ public class ActuatorUp extends Command{
     }
 
     public void execute() {
-        m_actuator.Set(0.5f);
+        m_actuator.set(0.5f);
         System.out.println("Moving up");
     }
 
@@ -23,7 +20,7 @@ public class ActuatorUp extends Command{
     }
 
     public void end(boolean interrupted) {
-        m_actuator.Set(0.0f);
+        m_actuator.set(0.0f);
         System.out.println("Not moving");
     }
 }
