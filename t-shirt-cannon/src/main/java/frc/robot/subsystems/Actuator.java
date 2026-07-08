@@ -11,10 +11,11 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Actuator extends SubsystemBase{
-    final SparkMax actuatorLeader = new SparkMax(3, MotorType.kBrushed);
-    DCMotor actuatorGearbox = DCMotor.getNEO(1);
+    final SparkMax actuatorLeader = new SparkMax(Constants.ACTUATOR_MOTOR_PORT, MotorType.kBrushed);
+    DCMotor actuatorGearbox = DCMotor.getNEO(Constants.ACTUATOR_GEARBOX_MOTOR_NUMBER);
 
     SparkMaxSim actuatorLeaderSim = new SparkMaxSim(actuatorLeader, actuatorGearbox);
 
@@ -25,7 +26,7 @@ public class Actuator extends SubsystemBase{
     public void ActuatorConfig() {
         SparkMaxConfig globalConfig = new SparkMaxConfig();
     globalConfig
-      .smartCurrentLimit(50)
+      .smartCurrentLimit(Constants.STALL_LIMIT_SECS)
       .idleMode(IdleMode.kBrake);
 
     // Apply the global config and invert since it is on the opposite side

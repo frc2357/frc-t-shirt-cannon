@@ -30,13 +30,11 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   private final Drivetrain m_drivetrain = new Drivetrain();
-  private final Joystick m_controller = new Joystick(0);
+  private final Joystick m_controller = new Joystick(Constants.JOYSTICK_CONTROLLER_PORT);
 
   private Actuator m_actuator = new Actuator();
 
   private Valve m_valve = new Valve();
-
-  public double setPoint = 1.0;
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
@@ -55,15 +53,15 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
 
-    JoystickButton joystickAButton = new JoystickButton(m_controller, 1);
+    JoystickButton joystickAButton = new JoystickButton(m_controller, Constants.Z_KEY_BUTTON_NUMBER);
     joystickAButton
         .whileTrue(new ActuatorUp(m_actuator));
 
-    JoystickButton joystickBButton = new JoystickButton(m_controller, 2);
+    JoystickButton joystickBButton = new JoystickButton(m_controller, Constants.X_KEY_BUTTON_NUMBER);
     joystickBButton
         .whileTrue(new ActuatorDown(m_actuator));
 
-    JoystickButton joystickCButton = new JoystickButton(m_controller, 3);
+    JoystickButton joystickCButton = new JoystickButton(m_controller, Constants.C_KEY_BUTTON_NUMBER);
     joystickCButton
         .whileTrue(new ValveShoot(m_valve));
 
@@ -100,7 +98,7 @@ public class RobotContainer {
 
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-      m_drivetrain, () -> -m_controller.getRawAxis(1), () -> -m_controller.getRawAxis(0));
+      m_drivetrain, () -> -m_controller.getRawAxis(Constants.FORWARD_DRIVE_AXIS), () -> -m_controller.getRawAxis(Constants.TURN_DRIVE_AXIS));
       
   }
 }
