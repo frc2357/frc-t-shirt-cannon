@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 
 public class ActuatorUp extends Command{
 
@@ -12,7 +13,7 @@ public class ActuatorUp extends Command{
     }
 
     public void execute() {
-        m_actuator.set(0.5f);
+        m_actuator.set(Constants.ACTUATOR_UP_SPEED);
         System.out.println("Moving up");
     }
 
@@ -21,7 +22,7 @@ public class ActuatorUp extends Command{
     }
 
     public void end(boolean interrupted) {
-        m_actuator.set(0.0f);
+        m_actuator.set(Constants.ACTUATOR_OFF_SPEED);
         System.out.println("Not moving");
     }
 }

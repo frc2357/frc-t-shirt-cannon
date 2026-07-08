@@ -16,4 +16,12 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  public static final double ACTUATOR_UP_SPEED = 0.5f;
+  public static final double ACTUATOR_DOWN_SPEED = -0.5f;
+  public static final double ACTUATOR_OFF_SPEED = 0.0f;
+
+  public static final int DIGITAL_PORT = 0;
+
+  public static final double VALVESHOOT_SECONDS_TIME = 1.0f;
 }
