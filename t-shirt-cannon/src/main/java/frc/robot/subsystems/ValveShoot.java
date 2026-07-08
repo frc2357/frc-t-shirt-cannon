@@ -9,6 +9,7 @@ public class ValveShoot extends Command{
 
     public ValveShoot(Valve valve) {
         m_valve = valve;
+        addRequirements(valve);
     }
 
     public boolean isFinished() {

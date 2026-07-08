@@ -8,6 +8,7 @@ public class ActuatorDown extends Command{
 
     public ActuatorDown(Actuator actuator) {
         m_actuator = actuator;
+        addRequirements(actuator);
     }
 
     public void execute() {
