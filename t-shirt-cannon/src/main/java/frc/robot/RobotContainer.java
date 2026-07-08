@@ -13,7 +13,8 @@ import frc.robot.subsystems.ActuatorDown;
 import frc.robot.subsystems.ActuatorUp;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-
+import frc.robot.subsystems.Valve;
+import frc.robot.subsystems.ValveShoot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -33,8 +34,7 @@ public class RobotContainer {
 
   private Actuator m_actuator = new Actuator();
 
-  private ActuatorUp m_actuator_up = new ActuatorUp(m_actuator);
-  private ActuatorDown m_actuator_down = new ActuatorDown(m_actuator);
+  private Valve m_valve = new Valve();
 
   public double setPoint = 1.0;
 
@@ -62,6 +62,11 @@ public class RobotContainer {
     JoystickButton joystickBButton = new JoystickButton(m_controller, 2);
     joystickBButton
         .whileTrue(new ActuatorDown(m_actuator));
+
+    JoystickButton joystickCButton = new JoystickButton(m_controller, 3);
+    joystickCButton
+        .whileTrue(new ValveShoot(m_valve));
+
   }
 
   /**
