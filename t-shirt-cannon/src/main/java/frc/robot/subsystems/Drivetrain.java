@@ -32,16 +32,16 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-  final SparkMax leftLeader = new SparkMax(Constants.PORT.LEFT_MOTOR_PORT, MotorType.kBrushed);
-  final SparkMax rightLeader = new SparkMax(Constants.PORT.RIGHT_MOTOR_PORT, MotorType.kBrushed);
+  final SparkMax leftLeader = new SparkMax(Constants.BRAIN_PORTS.LEFT_MOTOR_PORT, MotorType.kBrushed);
+  final SparkMax rightLeader = new SparkMax(Constants.BRAIN_PORTS.RIGHT_MOTOR_PORT, MotorType.kBrushed);
 
-  DCMotor leftGearbox = DCMotor.getNEO(Constants.CAN_ID.LEFT_WHEEL_GEARBOX_MOTOR_NUMBER);
-  DCMotor rightGearbox = DCMotor.getNEO(Constants.CAN_ID.RIGHT_WHEEL_GEARBOX_MOTOR_NUMBER);
+  DCMotor leftGearbox = DCMotor.getNEO(Constants.BONUS_MOTOR_DETAILS.LEFT_WHEEL_GEARBOX_MOTOR_NUMBER);
+  DCMotor rightGearbox = DCMotor.getNEO(Constants.BONUS_MOTOR_DETAILS.RIGHT_WHEEL_GEARBOX_MOTOR_NUMBER);
   
   SparkMaxSim leftLeaderSim = new SparkMaxSim(leftLeader, leftGearbox);
   SparkMaxSim rightLeaderSim = new SparkMaxSim(rightLeader, rightGearbox);
 
-  private AnalogGyro m_gyro = new AnalogGyro(Constants.SIM.GYRO_SIM_CHANNEL);
+  private AnalogGyro m_gyro = new AnalogGyro(Constants.PROGRAM_VISUAL_SIMULATION.GYRO_SIM_CHANNEL);
 
   private AnalogGyroSim m_gyroSim = new AnalogGyroSim(m_gyro);
 
@@ -88,7 +88,7 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
         SmartDashboard.putData("Field", m_field);
 
     globalConfig
-      .smartCurrentLimit(Constants.CAN_ID.STALL_LIMIT_SECS)
+      .smartCurrentLimit(50)
       .idleMode(IdleMode.kBrake);
 
     // Apply the global config and invert since it is on the opposite side
@@ -109,7 +109,7 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
     leftLeader.configure(globalConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightLeader.configure(rightLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);    
     
-    XboxController joystick = new XboxController(Constants.CONTROLS.JOYSTICK_CONTROLLER_PORT);
+    XboxController joystick = new XboxController(0);
 
     double forward = -joystick.getLeftY();
     double rotation = joystick.getRightX();
@@ -193,8 +193,8 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
   public void periodic() {
     // This method will be called once per scheduler run
     m_odometry.update(m_gyro.getRotation2d(),
-        leftLeader.getEncoder().getPosition() * Constants.CAN_ID.WHEEL_DIAMETER_CM,
-        rightLeader.getEncoder().getPosition() * Constants.CAN_ID.WHEEL_DIAMETER_CM);
+        leftLeader.getEncoder().getPosition() * 1.91475,
+        rightLeader.getEncoder().getPosition() * 1.91475);
     m_field.setRobotPose(m_odometry.getPoseMeters());
   }
 

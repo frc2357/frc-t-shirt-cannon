@@ -15,7 +15,7 @@ public class ValveShoot extends Command{
 
     public boolean isFinished() {
         System.out.println("Valve: " + m_timer.get());
-        return m_timer.hasElapsed(Constants.VALVE.VALVESHOOT_SECONDS_TIME);
+        return m_timer.hasElapsed(Constants.CANNON.VALVESHOOT_SECONDS_TIME);
     }
 
     public void initialize() {

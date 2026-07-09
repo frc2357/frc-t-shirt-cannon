@@ -25,7 +25,7 @@ public class Robot extends TimedRobot {
 
   private Valve m_valve = new Valve();
 
-  private final CommandXboxController m_driverController = new CommandXboxController(Constants.CONTROLS.JOYSTICK_CONTROLLER_PORT);
+  private final CommandXboxController m_driverController = new CommandXboxController(Constants.CONTROLLER.JOYSTICK_CONTROLLER_PORT);
 
   public Robot() {
     configureButtonBindings();
