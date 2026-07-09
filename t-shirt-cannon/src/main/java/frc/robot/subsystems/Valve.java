@@ -3,9 +3,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.simulation.DigitalPWMSim;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Valve extends SubsystemBase{
-    DigitalOutput valve = new DigitalOutput(0);
+    DigitalOutput valve = new DigitalOutput(Constants.PORT.DIGITAL_PORT);
 
     DigitalPWMSim valveSim = new DigitalPWMSim(valve);
 

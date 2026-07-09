@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -30,20 +29,18 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
 
   private final Drivetrain m_drivetrain = new Drivetrain();
-  private final Joystick m_controller = new Joystick(0);
+  private final Joystick m_controller = new Joystick(Constants.CONTROLS.JOYSTICK_CONTROLLER_PORT);
 
   private Actuator m_actuator = new Actuator();
 
   private Valve m_valve = new Valve();
-
-  public double setPoint = 1.0;
 
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(Constants.CONTROLS.JOYSTICK_CONTROLLER_PORT);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -55,15 +52,15 @@ public class RobotContainer {
   private void configureButtonBindings() {
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
 
-    JoystickButton joystickAButton = new JoystickButton(m_controller, 1);
+    JoystickButton joystickAButton = new JoystickButton(m_controller, Constants.CONTROLS.Z_KEY_BUTTON_NUMBER);
     joystickAButton
         .whileTrue(new ActuatorUp(m_actuator));
 
-    JoystickButton joystickBButton = new JoystickButton(m_controller, 2);
+    JoystickButton joystickBButton = new JoystickButton(m_controller, Constants.CONTROLS.X_KEY_BUTTON_NUMBER);
     joystickBButton
         .whileTrue(new ActuatorDown(m_actuator));
 
-    JoystickButton joystickCButton = new JoystickButton(m_controller, 3);
+    JoystickButton joystickCButton = new JoystickButton(m_controller, Constants.CONTROLS.C_KEY_BUTTON_NUMBER);
     joystickCButton
         .whileTrue(new ValveShoot(m_valve));
 
@@ -100,7 +97,7 @@ public class RobotContainer {
 
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-      m_drivetrain, () -> -m_controller.getRawAxis(1), () -> -m_controller.getRawAxis(0));
+      m_drivetrain, () -> -m_controller.getRawAxis(Constants.ROBOT.FORWARD_DRIVE_AXIS), () -> -m_controller.getRawAxis(Constants.ROBOT.TURN_DRIVE_AXIS));
       
   }
 }

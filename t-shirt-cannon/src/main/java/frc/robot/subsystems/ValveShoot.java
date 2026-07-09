@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 
 public class ValveShoot extends Command{
     Valve m_valve;
@@ -14,7 +15,7 @@ public class ValveShoot extends Command{
 
     public boolean isFinished() {
         System.out.println("Valve: " + m_timer.get());
-        return m_timer.hasElapsed(0.1);
+        return m_timer.hasElapsed(Constants.VALVE.VALVESHOOT_SECONDS_TIME);
     }
 
     public void initialize() {
