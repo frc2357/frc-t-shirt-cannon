@@ -13,12 +13,12 @@ public class ActuatorDown extends Command{
     }
 
     public void execute() {
-        m_actuator.set(Constants.ACTUATOR_DOWN_SPEED);
+        m_actuator.set(Constants.ACTUATOR.ACTUATOR_DOWN_SPEED);
         System.out.println("Moving down");
     }
 
     public void end(boolean interrupted) {
-        m_actuator.set(Constants.ACTUATOR_OFF_SPEED);
+        m_actuator.set(Constants.ACTUATOR.ACTUATOR_OFF_SPEED);
         System.out.println("Not moving");
     }
 }

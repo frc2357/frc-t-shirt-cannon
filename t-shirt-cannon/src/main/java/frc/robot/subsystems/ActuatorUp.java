@@ -13,7 +13,7 @@ public class ActuatorUp extends Command{
     }
 
     public void execute() {
-        m_actuator.set(Constants.ACTUATOR_UP_SPEED);
+        m_actuator.set(Constants.ACTUATOR.ACTUATOR_UP_SPEED);
         System.out.println("Moving up");
     }
 
@@ -22,7 +22,7 @@ public class ActuatorUp extends Command{
     }
 
     public void end(boolean interrupted) {
-        m_actuator.set(Constants.ACTUATOR_OFF_SPEED);
+        m_actuator.set(Constants.ACTUATOR.ACTUATOR_OFF_SPEED);
         System.out.println("Not moving");
     }
 }

@@ -14,8 +14,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Actuator extends SubsystemBase{
-    final SparkMax actuatorLeader = new SparkMax(Constants.ACTUATOR_MOTOR_PORT, MotorType.kBrushed);
-    DCMotor actuatorGearbox = DCMotor.getNEO(Constants.ACTUATOR_GEARBOX_MOTOR_NUMBER);
+    final SparkMax actuatorLeader = new SparkMax(Constants.PORT.ACTUATOR_MOTOR_PORT, MotorType.kBrushed);
+    DCMotor actuatorGearbox = DCMotor.getNEO(Constants.CAN_ID.ACTUATOR_GEARBOX_MOTOR_NUMBER);
 
     SparkMaxSim actuatorLeaderSim = new SparkMaxSim(actuatorLeader, actuatorGearbox);
 
@@ -26,7 +26,7 @@ public class Actuator extends SubsystemBase{
     public void ActuatorConfig() {
         SparkMaxConfig globalConfig = new SparkMaxConfig();
     globalConfig
-      .smartCurrentLimit(Constants.STALL_LIMIT_SECS)
+      .smartCurrentLimit(Constants.CAN_ID.STALL_LIMIT_SECS)
       .idleMode(IdleMode.kBrake);
 
     // Apply the global config and invert since it is on the opposite side

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Valve extends SubsystemBase{
-    DigitalOutput valve = new DigitalOutput(Constants.DIGITAL_PORT);
+    DigitalOutput valve = new DigitalOutput(Constants.PORT.DIGITAL_PORT);
 
     DigitalPWMSim valveSim = new DigitalPWMSim(valve);
 
