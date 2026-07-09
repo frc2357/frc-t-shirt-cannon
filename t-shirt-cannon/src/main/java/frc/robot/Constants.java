@@ -13,8 +13,9 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
   public static class CONTROLS {
-    public static final int JOYSTICK_CONTROLLER_PORT = 8;
+    public static final int JOYSTICK_CONTROLLER_PORT = 0;
 
     public static final int Z_KEY_BUTTON_NUMBER = 1;
     public static final int X_KEY_BUTTON_NUMBER = 2;
@@ -63,6 +64,6 @@ public final class Constants {
   }
 
   public static class PROGRAM {
-    public static final double PROGRAM_UPDATE_TIME_SECS = 0.02;
+  public static final double PROGRAM_UPDATE_TIME_SECS = 0.02;
   }
 }
