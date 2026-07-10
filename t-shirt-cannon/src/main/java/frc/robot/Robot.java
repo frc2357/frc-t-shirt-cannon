@@ -33,8 +33,8 @@ public class Robot extends TimedRobot {
 
   private void configureButtonBindings() {
      drivetrain.setDefaultCommand(getArcadeDriveCommand());
-     driverController.povUp().whileTrue(new CannonPivotUp(cannonPivot));
-     driverController.povDown().whileTrue(new CannonPivotDown(cannonPivot));
+     driverController.povUp().whileTrue(new CannonPivotUp());
+     driverController.povDown().whileTrue(new CannonPivotDown());
      driverController.rightTrigger(Constants.CONTROLLER.CANNON_FIRE_THRESHOLD).whileTrue(new CannonShoot(cannon));
   }
 
