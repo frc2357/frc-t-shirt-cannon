@@ -33,9 +33,9 @@ public class Robot extends TimedRobot {
 
   private void configureButtonBindings() {
     m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
-     m_driverController.a().whileTrue(new ActuatorUp(m_actuator));
-     m_driverController.b().whileTrue(new ActuatorDown(m_actuator));
-     m_driverController.x().whileTrue(new ValveShoot(m_valve));
+     m_driverController.povUp().whileTrue(new ActuatorUp(m_actuator));
+     m_driverController.povDown().whileTrue(new ActuatorDown(m_actuator));
+     m_driverController.rightTrigger(Constants.CONTROLLER.CANNON_FIRE_THRESHOLD).whileTrue(new ValveShoot(m_valve));
   }
 
   public Command getArcadeDriveCommand() {

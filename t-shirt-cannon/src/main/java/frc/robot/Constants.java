@@ -16,6 +16,8 @@ public final class Constants {
 
   public static class CONTROLLER {
     public static final int JOYSTICK_CONTROLLER_PORT = 0;
+
+    public static final double CANNON_FIRE_THRESHOLD = 0.8f;
   }
 
   public static class ROBOT {
