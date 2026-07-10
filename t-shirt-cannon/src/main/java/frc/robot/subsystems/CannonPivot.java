@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.sim.SparkMaxSim;
@@ -13,30 +15,26 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Actuator extends SubsystemBase{
-    final SparkMax actuatorLeader = new SparkMax(Constants.BRAIN_PORTS.ACTUATOR_MOTOR_PORT, MotorType.kBrushed);
-    DCMotor actuatorGearbox = DCMotor.getNEO(Constants.BONUS_MOTOR_DETAILS.ACTUATOR_GEARBOX_MOTOR_NUMBER);
-
-    SparkMaxSim actuatorLeaderSim = new SparkMaxSim(actuatorLeader, actuatorGearbox);
+public class CannonPivot extends SubsystemBase{
+    final TalonSRX m_cannonPivotLeader = new TalonSRX(Constants.CAN_ID.CANNON_PIVOT_MOTOR);
+    DCMotor m_cannonPivotGearbox = DCMotor.getNEO(Constants.CANNON_PIVOT.NUMBER_OF_MOTORS);
 
     public void set(double speed) {
-        actuatorLeader.set(speed);
+        m_cannonPivotLeader.set(TalonSRXControlMode.PercentOutput, speed);
     }
 
-    public void ActuatorConfig() {
+    public void CannonPivotConfig() {
         SparkMaxConfig globalConfig = new SparkMaxConfig();
     globalConfig
-      .smartCurrentLimit(50)
+      .smartCurrentLimit(Constants.CANNON_PIVOT.STALL_LIMIT_AMPS)
       .idleMode(IdleMode.kBrake);
 
-    // Apply the global config and invert since it is on the opposite side
-
-    actuatorLeader.configure(globalConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);    
+    // Apply the global config and invert since it is on the opposite side   
 
     }
 
     public void simulationPeriodic() {
-        //actuatorLeaderSim.iterate(actuatorLeader.getVelocity(), )
+        //cannonPivotLeaderSim.iterate(cannonPivotLeader.getVelocity(), )
     }
 
     public Command MotorControl() {

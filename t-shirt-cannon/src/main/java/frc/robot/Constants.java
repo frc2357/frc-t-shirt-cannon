@@ -31,7 +31,7 @@ public final class Constants {
 
     public static final int DIGITAL_PORT = 0;
 
-    public static final int ACTUATOR_MOTOR_PORT = 3;
+    public static final int CANNON_PIVOT_MOTOR_PORT = 3;
   }
 
   public static class BONUS_MOTOR_DETAILS {
@@ -40,7 +40,7 @@ public final class Constants {
 
     public static final double WHEEL_DIAMETER_CM = 1.91475;
 
-    public static final int ACTUATOR_GEARBOX_MOTOR_NUMBER = 1;
+    public static final int CANNON_PIVOT_GEARBOX_MOTOR_NUMBER = 1;
 
     public static final int STALL_LIMIT_SECS = 50;
   }
@@ -50,13 +50,13 @@ public final class Constants {
   }
 
   public static class CANNON_PIVOT {
-    public static final double ACTUATOR_UP_SPEED = 0.5f;
-    public static final double ACTUATOR_DOWN_SPEED = -0.5f;
-    public static final double ACTUATOR_OFF_SPEED = 0.0f;
+    public static final double CANNON_PIVOT_UP_SPEED = 0.5f;
+    public static final double CANNON_PIVOT_DOWN_SPEED = -0.5f;
+    public static final double CANNON_PIVOT_OFF_SPEED = 0.0f;
   }
 
   public static class CANNON {
-    public static final double VALVESHOOT_SECONDS_TIME = 1.0f;
+    public static final double CANNONSHOOT_SECONDS_TIME = 1.0f;
   }
 
   public static class PROGRAM {
