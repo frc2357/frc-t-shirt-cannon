@@ -6,19 +6,19 @@ import frc.robot.Constants;
 import frc.robot.Robot;
 
 public class CannonShoot extends Command{
-    Timer timer = new Timer();
+    Timer m_timer = new Timer();
 
     public CannonShoot(Cannon cannon) {
         addRequirements(Robot.cannon);
     }
 
     public boolean isFinished() {
-        System.out.println("Cannon: " + timer.get());
-        return timer.hasElapsed(Constants.CANNON.CANNONSHOOT_SECONDS_TIME);
+        System.out.println("Cannon: " + m_timer.get());
+        return m_timer.hasElapsed(Constants.CANNON.CANNONSHOOT_SECONDS_TIME);
     }
 
     public void initialize() {
-        timer.start();
+        m_timer.start();
     }
 
     public void execute() {
@@ -29,7 +29,7 @@ public class CannonShoot extends Command{
     public void end(boolean interrupted) {
         System.out.println("Cannon: stopped");
         Robot.cannon.set(false);
-        timer.stop();
-        timer.reset();
+        m_timer.stop();
+        m_timer.reset();
     }
 }
