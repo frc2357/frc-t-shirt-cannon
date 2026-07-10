@@ -41,18 +41,18 @@ public class Drivetrain extends SubsystemBase {
   SparkMaxSim leftLeaderSim = new SparkMaxSim(leftLeader, leftGearbox);
   SparkMaxSim rightLeaderSim = new SparkMaxSim(rightLeader, rightGearbox);
 
-  private AnalogGyro m_gyro = new AnalogGyro(Constants.PROGRAM_VISUAL_SIMULATION.GYRO_SIM_CHANNEL);
+  private AnalogGyro gyro = new AnalogGyro(Constants.PROGRAM_VISUAL_SIMULATION.GYRO_SIM_CHANNEL);
 
-  private AnalogGyroSim m_gyroSim = new AnalogGyroSim(m_gyro);
+  private AnalogGyroSim gyroSim = new AnalogGyroSim(gyro);
 
-  private Field2d m_field = new Field2d();
+  private Field2d field = new Field2d();
 
-  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-    m_gyro.getRotation2d(), 
+  DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(
+    gyro.getRotation2d(), 
     leftLeader.getEncoder().getPosition(), 
     rightLeader.getEncoder().getPosition());
 
-DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim(KitbotMotor.kSingleNEOPerSide,
+DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(KitbotMotor.kSingleNEOPerSide,
   KitbotGearing.k5p95, 
   KitbotWheelSize.kTenInch,
   null);
@@ -66,26 +66,26 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
   // to use DIO pins 4/5 and 6/7 for the left and right
         
           // Set up the differential drive controller
-          private final DifferentialDrive m_diffDrive =
+          private final DifferentialDrive diffDrive =
                 new DifferentialDrive(leftLeader::set, rightLeader::set);
 
   // Set up the XRPGyro
             //private final XRPGyro m_gyro = new XRPGyro();
 
   // Set up the BuiltInAccelerometer
-  private final BuiltInAccelerometer m_accelerometer = new BuiltInAccelerometer();
+  private final BuiltInAccelerometer accelerometer = new BuiltInAccelerometer();
 
   /** Creates a new Drivetrain. */
   public Drivetrain() {
-        SendableRegistry.addChild(m_diffDrive, leftLeader);
-        SendableRegistry.addChild(m_diffDrive, rightLeader);
+        SendableRegistry.addChild(diffDrive, leftLeader);
+        SendableRegistry.addChild(diffDrive, rightLeader);
 
         SparkMaxConfig globalConfig = new SparkMaxConfig();
         SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
         SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
         SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
 
-        SmartDashboard.putData("Field", m_field);
+        SmartDashboard.putData("Field", field);
 
     globalConfig
       .smartCurrentLimit(50)
@@ -126,7 +126,7 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
   }
 
   public void arcadeDrive(double xaxisSpeed, double zaxisRotate) {
-    m_diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
+    diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate);
   }
 
 
@@ -136,7 +136,7 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
    * @return The acceleration of the XRP along the X-axis in Gs
    */
   public double getAccelX() {
-    return m_accelerometer.getX();
+    return accelerometer.getX();
   }
 
   /**
@@ -145,7 +145,7 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
    * @return The acceleration of the XRP along the Y-axis in Gs
    */
   public double getAccelY() {
-    return m_accelerometer.getY();
+    return accelerometer.getY();
   }
 
   /**
@@ -154,7 +154,7 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
    * @return The acceleration of the XRP along the Z-axis in Gs
    */
   public double getAccelZ() {
-    return m_accelerometer.getZ();
+    return accelerometer.getZ();
   }
 
   /**
@@ -192,21 +192,21 @@ DifferentialDrivetrainSim m_driveSim = DifferentialDrivetrainSim.createKitbotSim
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_odometry.update(m_gyro.getRotation2d(),
-        leftLeader.getEncoder().getPosition() * 1.91475,
-        rightLeader.getEncoder().getPosition() * 1.91475);
-    m_field.setRobotPose(m_odometry.getPoseMeters());
+    odometry.update(gyro.getRotation2d(),
+        leftLeader.getEncoder().getPosition() * Constants.BONUS_MOTOR_DETAILS.WHEEL_DIAMETER_CM,
+        rightLeader.getEncoder().getPosition() * Constants.BONUS_MOTOR_DETAILS.WHEEL_DIAMETER_CM);
+    field.setRobotPose(odometry.getPoseMeters());
   }
 
   @Override
   public void simulationPeriodic() {
-    m_driveSim.setInputs(leftLeader.get() * RobotController.getInputVoltage(),
+    driveSim.setInputs(leftLeader.get() * RobotController.getInputVoltage(),
     rightLeader.get() * RobotController.getInputVoltage());
 
-    m_driveSim.update(0.02);
-    leftLeaderSim.iterate(m_driveSim.getLeftVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
-    rightLeaderSim.iterate(m_driveSim.getRightVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
-    m_gyroSim.setAngle(-m_driveSim.getHeading().getDegrees());
+    driveSim.update(0.02);
+    leftLeaderSim.iterate(driveSim.getLeftVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
+    rightLeaderSim.iterate(driveSim.getRightVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
+    gyroSim.setAngle(-driveSim.getHeading().getDegrees());
 
   }
 }

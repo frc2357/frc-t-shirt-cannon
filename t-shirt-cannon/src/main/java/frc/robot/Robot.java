@@ -17,30 +17,30 @@ import frc.robot.subsystems.Cannon;
 import frc.robot.subsystems.CannonShoot;
 
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private Command autonomousCommand;
 
-  private final Drivetrain m_drivetrain = new Drivetrain();
+  public final static Drivetrain drivetrain = new Drivetrain();
 
-  public static CannonPivot m_cannonPivot = new CannonPivot();
+  public final static CannonPivot cannonPivot = new CannonPivot();
 
-  private Cannon m_cannon = new Cannon();
+  public final static Cannon cannon = new Cannon();
 
-  private final CommandXboxController m_driverController = new CommandXboxController(Constants.CONTROLLER.JOYSTICK_CONTROLLER_PORT);
+  private final static CommandXboxController driverController = new CommandXboxController(Constants.CONTROLLER.JOYSTICK_CONTROLLER_PORT);
 
   public Robot() {
     configureButtonBindings();
   }
 
   private void configureButtonBindings() {
-    m_drivetrain.setDefaultCommand(getArcadeDriveCommand());
-     m_driverController.povUp().whileTrue(new CannonPivotUp(m_cannonPivot));
-     m_driverController.povDown().whileTrue(new CannonPivotDown(m_cannonPivot));
-     m_driverController.rightTrigger(Constants.CONTROLLER.CANNON_FIRE_THRESHOLD).whileTrue(new CannonShoot(m_cannon));
+     drivetrain.setDefaultCommand(getArcadeDriveCommand());
+     driverController.povUp().whileTrue(new CannonPivotUp(cannonPivot));
+     driverController.povDown().whileTrue(new CannonPivotDown(cannonPivot));
+     driverController.rightTrigger(Constants.CONTROLLER.CANNON_FIRE_THRESHOLD).whileTrue(new CannonShoot(cannon));
   }
 
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-      m_drivetrain, () -> -m_driverController.getLeftY(), () -> -m_driverController.getRightX());
+      drivetrain, () -> -driverController.getLeftY(), () -> -driverController.getRightX());
   }
 
   @Override
@@ -56,8 +56,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    if (m_autonomousCommand != null) {
-      CommandScheduler.getInstance().schedule(m_autonomousCommand);
+    if (autonomousCommand != null) {
+      CommandScheduler.getInstance().schedule(autonomousCommand);
     }
   }
 
@@ -66,8 +66,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (autonomousCommand != null) {
+      autonomousCommand.cancel();
     }
   }
 

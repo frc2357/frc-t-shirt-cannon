@@ -5,15 +5,15 @@ import frc.robot.Constants;
 
 public class CannonPivotUp extends Command{
 
-    public CannonPivot m_cannon_pivot;
+    public CannonPivot cannon_pivot;
 
     public CannonPivotUp(CannonPivot cannonPivot) {
-        m_cannon_pivot = cannonPivot;
+        cannon_pivot = cannonPivot;
         addRequirements(cannonPivot);
     }
 
     public void execute() {
-        m_cannon_pivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_UP_SPEED);
+        cannon_pivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_UP_SPEED);
         System.out.println("Moving up");
     }
 
@@ -22,7 +22,7 @@ public class CannonPivotUp extends Command{
     }
 
     public void end(boolean interrupted) {
-        m_cannon_pivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_OFF_SPEED);
+        cannon_pivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_OFF_SPEED);
         System.out.println("Not moving");
     }
 }
