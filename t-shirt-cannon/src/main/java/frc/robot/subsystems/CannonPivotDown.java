@@ -15,6 +15,10 @@ public class CannonPivotDown extends Command{
         System.out.println("Moving down");
     }
 
+    public boolean isFinished() {
+        return false;
+    }
+
     public void end(boolean interrupted) {
         Robot.cannonPivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_OFF_SPEED);
         System.out.println("Not moving");
