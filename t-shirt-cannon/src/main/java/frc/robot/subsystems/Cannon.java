@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Cannon extends SubsystemBase{
-    DigitalOutput m_cannon = new DigitalOutput(Constants.BRAIN_PORTS.DIGITAL_PORT);
+    DigitalOutput m_cannon = new DigitalOutput(Constants.RIO_DIGITAL_PORTS.DIGITAL_PORT);
 
     DigitalPWMSim m_cannonSim = new DigitalPWMSim(m_cannon);
 

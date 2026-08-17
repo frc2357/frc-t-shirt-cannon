@@ -30,13 +30,14 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-  final SparkMax m_leftLeader = new SparkMax(Constants.BRAIN_PORTS.LEFT_MOTOR_PORT, MotorType.kBrushed);
-  final SparkMax m_rightLeader = new SparkMax(Constants.BRAIN_PORTS.RIGHT_MOTOR_PORT, MotorType.kBrushed);
+  final SparkMax m_leftLeader = new SparkMax(Constants.CAN_ID.LEFT_DRIVE_MOTOR, MotorType.kBrushed);
+  final SparkMax m_rightLeader = new SparkMax(Constants.CAN_ID.RIGHT_DRIVE_MOTOR, MotorType.kBrushed);
 
-  DCMotor m_leftGearbox = DCMotor.getNEO(Constants.BONUS_MOTOR_DETAILS.LEFT_WHEEL_GEARBOX_MOTOR_NUMBER);
-  DCMotor m_rightGearbox = DCMotor.getNEO(Constants.BONUS_MOTOR_DETAILS.RIGHT_WHEEL_GEARBOX_MOTOR_NUMBER);
+  DCMotor m_leftGearbox = DCMotor.getNEO(Constants.DRIVE.NUMBER_OF_MOTORS_PER_SIDE);
+  DCMotor m_rightGearbox = DCMotor.getNEO(Constants.DRIVE.NUMBER_OF_MOTORS_PER_SIDE);
   
   SparkMaxSim m_leftLeaderSim = new SparkMaxSim(m_leftLeader, m_leftGearbox);
   SparkMaxSim m_rightLeaderSim = new SparkMaxSim(m_rightLeader, m_rightGearbox);
@@ -88,7 +89,7 @@ DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(K
         SmartDashboard.putData("Field", m_field);
 
     globalConfig
-      .smartCurrentLimit(50)
+      .smartCurrentLimit(Constants.DRIVE.STALL_LIMIT_AMPS)
       .idleMode(IdleMode.kBrake);
 
     // Apply the global config and invert since it is on the opposite side
@@ -193,8 +194,8 @@ DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(K
   public void periodic() {
     // This method will be called once per scheduler run
     m_odometry.update(m_gyro.getRotation2d(),
-        m_leftLeader.getEncoder().getPosition() * Constants.BONUS_MOTOR_DETAILS.WHEEL_DIAMETER_CM,
-        m_rightLeader.getEncoder().getPosition() * Constants.BONUS_MOTOR_DETAILS.WHEEL_DIAMETER_CM);
+        m_leftLeader.getEncoder().getPosition() * Constants.DRIVE.WHEEL_DIAMETER_CM,
+        m_rightLeader.getEncoder().getPosition() * Constants.DRIVE.WHEEL_DIAMETER_CM);
     m_field.setRobotPose(m_odometry.getPoseMeters());
   }
 
