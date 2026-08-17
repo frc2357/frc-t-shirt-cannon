@@ -39,12 +39,12 @@ public final class Constants {
   }
 
   public static class CAN_ID {
-    public static final int LEFT_WHEEL_GEARBOX_MOTOR_NUMBER = 1;
-    public static final int RIGHT_WHEEL_GEARBOX_MOTOR_NUMBER = 2;
+    public static final int LEFT_WHEEL_GEARBOX_MOTOR_NUMBER = 11;
+    public static final int RIGHT_WHEEL_GEARBOX_MOTOR_NUMBER = 12;
 
     public static final double WHEEL_DIAMETER_CM = 1.91475;
 
-    public static final int ACTUATOR_GEARBOX_MOTOR_NUMBER = 1;
+    public static final int ACTUATOR_GEARBOX_MOTOR_NUMBER = 13;
 
     public static final int STALL_LIMIT_SECS = 50;
   }
