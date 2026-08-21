@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.PersistMode;
 import com.revrobotics.ResetMode;
 import com.revrobotics.sim.SparkMaxSim;
@@ -20,8 +22,10 @@ import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.motorcontrol.PWMTalonSRX;
 import edu.wpi.first.wpilibj.simulation.AnalogGyroSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim;
+import edu.wpi.first.wpilibj.simulation.PWMSim;
 import edu.wpi.first.wpilibj.simulation.RoboRioSim;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotGearing;
 import edu.wpi.first.wpilibj.simulation.DifferentialDrivetrainSim.KitbotMotor;
@@ -33,30 +37,20 @@ import frc.robot.Constants;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-  final SparkMax m_leftLeader = new SparkMax(Constants.CAN_ID.LEFT_DRIVE_MOTOR, MotorType.kBrushed);
-  final SparkMax m_rightLeader = new SparkMax(Constants.CAN_ID.RIGHT_DRIVE_MOTOR, MotorType.kBrushed);
+  final TalonSRX m_leftLeader = new TalonSRX(Constants.CAN_ID.LEFT_DRIVE_MOTOR);
+  final TalonSRX m_rightLeader = new TalonSRX(Constants.CAN_ID.RIGHT_DRIVE_MOTOR);
 
   DCMotor m_leftGearbox = DCMotor.getNEO(Constants.DRIVE.NUMBER_OF_MOTORS_PER_SIDE);
   DCMotor m_rightGearbox = DCMotor.getNEO(Constants.DRIVE.NUMBER_OF_MOTORS_PER_SIDE);
-  
-  SparkMaxSim m_leftLeaderSim = new SparkMaxSim(m_leftLeader, m_leftGearbox);
-  SparkMaxSim m_rightLeaderSim = new SparkMaxSim(m_rightLeader, m_rightGearbox);
 
   private AnalogGyro m_gyro = new AnalogGyro(Constants.PROGRAM_VISUAL_SIMULATION.GYRO_SIM_CHANNEL);
 
-  private AnalogGyroSim m_gyroSim = new AnalogGyroSim(m_gyro);
-
   private Field2d m_field = new Field2d();
 
-  DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
-    m_gyro.getRotation2d(), 
-    m_leftLeader.getEncoder().getPosition(), 
-    m_rightLeader.getEncoder().getPosition());
-
-DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(KitbotMotor.kSingleNEOPerSide,
-  KitbotGearing.k5p95, 
-  KitbotWheelSize.kTenInch,
-  null);
+  //DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(
+    //m_gyro.getRotation2d(), 
+    //m_leftLeader.getEncoder().getPosition(), 
+    //m_rightLeader.getEncoder().getPosition());
 
   // The XRP has the left and right motors set to
   // channels 0 and 1 respectively
@@ -68,7 +62,15 @@ DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(K
         
           // Set up the differential drive controller
           private final DifferentialDrive diffDrive =
-                new DifferentialDrive(m_leftLeader::set, m_rightLeader::set);
+                new DifferentialDrive(this::setLeft, this::setRight);
+
+private void setLeft(double speed) {
+  m_leftLeader.set(TalonSRXControlMode.PercentOutput, speed);
+} 
+
+private void setRight(double speed) {
+  m_rightLeader.set(TalonSRXControlMode.PercentOutput, speed);
+} 
 
   // Set up the XRPGyro
             //private final XRPGyro m_gyro = new XRPGyro();
@@ -80,43 +82,36 @@ DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(K
   public Drivetrain() {
         SendableRegistry.addChild(diffDrive, m_leftLeader);
         SendableRegistry.addChild(diffDrive, m_rightLeader);
+        m_rightLeader.setInverted(true);
 
-        SparkMaxConfig globalConfig = new SparkMaxConfig();
-        SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
-        SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
-        SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
+        //SparkMaxConfig globalConfig = new SparkMaxConfig();
+        //SparkMaxConfig rightLeaderConfig = new SparkMaxConfig();
+        //SparkMaxConfig leftFollowerConfig = new SparkMaxConfig();
+        //SparkMaxConfig rightFollowerConfig = new SparkMaxConfig();
 
         SmartDashboard.putData("Field", m_field);
 
-    globalConfig
-      .smartCurrentLimit(Constants.DRIVE.STALL_LIMIT_AMPS)
-      .idleMode(IdleMode.kBrake);
+    //globalConfig
+    //  .smartCurrentLimit(Constants.DRIVE.STALL_LIMIT_AMPS)
+    //  .idleMode(IdleMode.kBrake);
 
     // Apply the global config and invert since it is on the opposite side
-    rightLeaderConfig
-        .apply(globalConfig)
-        .inverted(true);
+    //rightLeaderConfig
+    //    .apply(globalConfig)
+    //    .inverted(true);
 
     // Apply the global config and set the leader SPARK for follower mode
-    leftFollowerConfig
-        .apply(globalConfig)
-        .follow(m_leftLeader);
+    //leftFollowerConfig
+    //    .apply(globalConfig)
+    //    .follow(m_leftLeader);
 
     // Apply the global config and set the leader SPARK for follower mode
-    rightFollowerConfig
-        .apply(globalConfig)
-        .follow(m_rightLeader);
+    //rightFollowerConfig
+    //    .apply(globalConfig)
+    //    .follow(m_rightLeader);
 
-    m_leftLeader.configure(globalConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    m_rightLeader.configure(rightLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);    
-    
-    XboxController joystick = new XboxController(0);
-
-    double forward = -joystick.getLeftY();
-    double rotation = joystick.getRightX();
-
-    m_leftLeader.set(forward + rotation);
-    m_rightLeader.set(forward - rotation);
+    //m_leftLeader.configure(globalConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    //m_rightLeader.configure(rightLeaderConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);    
 
     // We need to invert one side of the drivetrain so that positive voltages
     // result in both sides moving forward. Depending on how your robot's
@@ -164,7 +159,7 @@ DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(K
    * @return The current angle of the XRP in degrees
    */
   //public double getGyroAngleX() {
-    //return m_gyro.getAngleX();
+  //  return m_gyro.getAngleX();
   //}
 
   /**
@@ -173,7 +168,7 @@ DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(K
    * @return The current angle of the XRP in degrees
    */
   //public double getGyroAngleY() {
-    //return m_gyro.getAngleY();
+  //  return m_gyro.getAngleY();
   //}
 
   /**
@@ -182,32 +177,32 @@ DifferentialDrivetrainSim driveSim = DifferentialDrivetrainSim.createKitbotSim(K
    * @return The current angle of the XRP in degrees
    */
   //public double getGyroAngleZ() {
-    //return m_gyro.getAngleZ();
+  //  return m_gyro.getAngleZ();
   //}
 
   /** Reset the gyro. */
   public void resetGyro() {
-    //m_gyro.reset();
+    m_gyro.reset();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_odometry.update(m_gyro.getRotation2d(),
-        m_leftLeader.getEncoder().getPosition() * Constants.DRIVE.WHEEL_DIAMETER_CM,
-        m_rightLeader.getEncoder().getPosition() * Constants.DRIVE.WHEEL_DIAMETER_CM);
-    m_field.setRobotPose(m_odometry.getPoseMeters());
+    //m_odometry.update(m_gyro.getRotation2d(),
+    //    m_leftLeader.getEncoder().getPosition() * Constants.DRIVE.WHEEL_DIAMETER_CM,
+    //    m_rightLeader.getEncoder().getPosition() * Constants.DRIVE.WHEEL_DIAMETER_CM);
+    //m_field.setRobotPose(m_odometry.getPoseMeters());
   }
 
   @Override
   public void simulationPeriodic() {
-    driveSim.setInputs(m_leftLeader.get() * RobotController.getInputVoltage(),
-    m_rightLeader.get() * RobotController.getInputVoltage());
+    //driveSim.setInputs(m_leftLeader.get() * RobotController.getInputVoltage(),
+    //m_rightLeader.get() * RobotController.getInputVoltage());
 
-    driveSim.update(0.02);
-    m_leftLeaderSim.iterate(driveSim.getLeftVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
-    m_rightLeaderSim.iterate(driveSim.getRightVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
-    m_gyroSim.setAngle(-driveSim.getHeading().getDegrees());
+    //driveSim.update(0.02);
+    //m_leftLeaderSim.iterate(driveSim.getLeftVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
+    //m_rightLeaderSim.iterate(driveSim.getRightVelocityMetersPerSecond(), RoboRioSim.getVInVoltage(), Constants.PROGRAM.PROGRAM_UPDATE_TIME_SECS);
+    //m_gyroSim.setAngle(-driveSim.getHeading().getDegrees());
 
   }
 }

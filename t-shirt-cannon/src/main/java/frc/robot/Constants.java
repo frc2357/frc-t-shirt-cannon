@@ -48,8 +48,8 @@ public final class Constants {
   }
 
   public static class CANNON_PIVOT {
-    public static final double CANNON_PIVOT_UP_SPEED = 0.5f;
-    public static final double CANNON_PIVOT_DOWN_SPEED = -0.5f;
+    public static final double CANNON_PIVOT_UP_SPEED = 1.1f;
+    public static final double CANNON_PIVOT_DOWN_SPEED = -1.1f;
     public static final double CANNON_PIVOT_OFF_SPEED = 0.0f;
 
     public static final int NUMBER_OF_MOTORS = 1;

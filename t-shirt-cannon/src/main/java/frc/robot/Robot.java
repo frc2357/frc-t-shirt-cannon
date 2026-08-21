@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
 
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-      drivetrain, () -> -driverController.getLeftY(), () -> -driverController.getRightX());
+      drivetrain, () -> driverController.getRightX(), () -> driverController.getLeftY());
   }
 
   @Override
