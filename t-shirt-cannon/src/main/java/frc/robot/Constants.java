@@ -27,12 +27,6 @@ public final class Constants {
   public static class DRIVE {
      public static final int NUMBER_OF_MOTORS_PER_SIDE = 1;
      public static final int STALL_LIMIT_AMPS = 40;
-
-     public static final double WHEEL_DIAMETER_CM = 1.91475;
-  }
-
-  public static class PROGRAM_VISUAL_SIMULATION {
-    public static final int GYRO_SIM_CHANNEL = 1;
   }
 
   public static class CANNON_PIVOT {
