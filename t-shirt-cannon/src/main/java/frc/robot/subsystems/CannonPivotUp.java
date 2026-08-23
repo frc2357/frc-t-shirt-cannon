@@ -2,18 +2,16 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
-public class ActuatorUp extends Command{
+public class CannonPivotUp extends Command{
 
-    public Actuator m_actuator;
-
-    public ActuatorUp(Actuator actuator) {
-        m_actuator = actuator;
-        addRequirements(actuator);
+    public CannonPivotUp() {
+        addRequirements(Robot.cannonPivot);
     }
 
     public void execute() {
-        m_actuator.set(Constants.ACTUATOR.ACTUATOR_UP_SPEED);
+        Robot.cannonPivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_UP_SPEED);
         System.out.println("Moving up");
     }
 
@@ -22,7 +20,7 @@ public class ActuatorUp extends Command{
     }
 
     public void end(boolean interrupted) {
-        m_actuator.set(Constants.ACTUATOR.ACTUATOR_OFF_SPEED);
+        Robot.cannonPivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_OFF_SPEED);
         System.out.println("Not moving");
     }
 }
