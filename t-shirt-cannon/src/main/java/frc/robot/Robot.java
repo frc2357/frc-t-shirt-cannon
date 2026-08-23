@@ -33,12 +33,13 @@ public class Robot extends TimedRobot {
 
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-      () -> driverController.getRightX(), () -> driverController.getLeftY());
+      () -> -driverController.getLeftY(), () -> -driverController.getRightX());
   }
 
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    System.out.println("Speed: " + speed)
   }
 
   @Override

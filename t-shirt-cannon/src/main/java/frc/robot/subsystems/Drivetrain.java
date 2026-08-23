@@ -25,8 +25,6 @@ public class Drivetrain extends SubsystemBase {
 
     m_leftMotor.configAllSettings(config);
     m_rightMotor.configAllSettings(config);
-
-    m_rightMotor.setInverted(true);
   }
 
   private void setLeft(double speed) {
