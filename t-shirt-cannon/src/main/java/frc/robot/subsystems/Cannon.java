@@ -10,7 +10,6 @@ public class Cannon extends SubsystemBase{
 
     DigitalPWMSim m_cannonSim = new DigitalPWMSim(m_cannon);
 
-
     public void set(boolean state) {
         m_cannon.set(state);
         System.out.println("Created: Cannon");
@@ -19,5 +18,4 @@ public class Cannon extends SubsystemBase{
     public void simulationPeriodic() {
         m_cannonSim.setDutyCycle(m_cannon.get() ? 1.0f : 0.0f);
     }
-
 }

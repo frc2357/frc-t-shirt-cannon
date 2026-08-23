@@ -58,7 +58,7 @@ public final class Constants {
   }
 
   public static class CANNON {
-    public static final double CANNONSHOOT_SECONDS_TIME = 1.0f;
+    public static final double CANNONSHOOT_SECONDS_TIME = 0.1f;
   }
 
   public static class PROGRAM {
