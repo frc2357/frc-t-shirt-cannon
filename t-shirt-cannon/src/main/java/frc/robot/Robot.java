@@ -33,8 +33,24 @@ public class Robot extends TimedRobot {
 
   public Command getArcadeDriveCommand() {
     return new ArcadeDrive(
-      () -> -driverController.getLeftY(), () -> -driverController.getRightX());
+      () -> getControllerSpeed(),
+      () -> getControllerRotate());
   }
+
+  public double getControllerSpeed() {
+    double speed = driverController.getLeftY();
+    speed = Math.copySign(Math.pow(speed, 2), speed);
+    speed *= Constants.DRIVE.MAX_SPEED;
+    return -speed;
+  }
+
+  public double getControllerRotate() {
+    double rotate = driverController.getRightX();
+    rotate = Math.copySign(Math.pow(rotate, 2), rotate);
+    rotate *= Constants.DRIVE.MAX_TURN;
+    return -rotate;
+  }
+
 
   @Override
   public void robotPeriodic() {

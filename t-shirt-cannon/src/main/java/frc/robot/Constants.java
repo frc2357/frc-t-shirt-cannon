@@ -25,8 +25,14 @@ public final class Constants {
   }
 
   public static class DRIVE {
-     public static final int NUMBER_OF_MOTORS_PER_SIDE = 1;
-     public static final int STALL_LIMIT_AMPS = 40;
+    public static final int NUMBER_OF_MOTORS_PER_SIDE = 1;
+    public static final int STALL_LIMIT_AMPS = 40;
+
+    public static final double MAX_SPEED = 0.8f;
+    public static final double MAX_TURN = 0.75f;
+
+    public static final int PEAK_CURRENT_DURATION_MILLISECONDS = 1;
+    public static final int OPEN_LOOP_RAMP_SECONDS = 1;
   }
 
   public static class CANNON_PIVOT {

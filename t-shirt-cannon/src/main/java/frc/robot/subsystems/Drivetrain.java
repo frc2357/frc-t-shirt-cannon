@@ -18,7 +18,8 @@ public class Drivetrain extends SubsystemBase {
     var config = new TalonSRXConfiguration();
     config.peakCurrentLimit = Constants.DRIVE.STALL_LIMIT_AMPS;
     config.continuousCurrentLimit = Constants.DRIVE.STALL_LIMIT_AMPS;
-    config.peakCurrentDuration = 1;
+    config.peakCurrentDuration = Constants.DRIVE.PEAK_CURRENT_DURATION_MILLISECONDS;
+    config.openloopRamp = Constants.DRIVE.OPEN_LOOP_RAMP_SECONDS;
 
     m_leftMotor.configAllSettings(config);
     m_rightMotor.configAllSettings(config);
