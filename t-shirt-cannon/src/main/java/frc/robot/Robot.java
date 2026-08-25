@@ -39,14 +39,14 @@ public class Robot extends TimedRobot {
 
   public double getControllerSpeed() {
     double speed = driverController.getLeftY();
-    speed = Math.copySign(Math.pow(speed, 2), speed);
+    speed = Math.copySign(Math.pow(speed, Constants.CONTROLLER.CONTROLLER_SPEED_EXPONENT), speed);
     speed *= Constants.DRIVE.MAX_SPEED;
     return -speed;
   }
 
   public double getControllerRotate() {
     double rotate = driverController.getRightX();
-    rotate = Math.copySign(Math.pow(rotate, 2), rotate);
+    rotate = Math.copySign(Math.pow(rotate, Constants.CONTROLLER.CONTROLLER_ROTATE_EXPONENT), rotate);
     rotate *= Constants.DRIVE.MAX_TURN;
     return -rotate;
   }

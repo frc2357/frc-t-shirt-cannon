@@ -19,7 +19,7 @@ public class CannonPivot extends SubsystemBase{
         var config = new TalonSRXConfiguration();
         config.peakCurrentLimit = Constants.CANNON_PIVOT.STALL_LIMIT_AMPS;
         config.continuousCurrentLimit = Constants.CANNON_PIVOT.STALL_LIMIT_AMPS;
-        config.peakCurrentDuration = 1;
+        config.peakCurrentDuration = Constants.CANNON_PIVOT.PEAK_CURRENT_DURATION_MILLISECONDS;
 
         m_motor.configAllSettings(config);
     }

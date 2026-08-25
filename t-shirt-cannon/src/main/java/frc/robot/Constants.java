@@ -6,6 +6,9 @@ public final class Constants {
     public static final int JOYSTICK_CONTROLLER_PORT = 0;
 
     public static final double CANNON_FIRE_THRESHOLD = 0.8f;
+
+    public static final int CONTROLLER_SPEED_EXPONENT = 2;
+    public static final int CONTROLLER_ROTATE_EXPONENT = 2;
   }
 
   public static class ROBOT {
@@ -33,6 +36,12 @@ public final class Constants {
 
     public static final int PEAK_CURRENT_DURATION_MILLISECONDS = 1;
     public static final int OPEN_LOOP_RAMP_SECONDS = 1;
+
+    public static final double BRAKE_SPEED_LOWER_BOUND = -0.1f;
+    public static final double BRAKE_SPEED_UPPER_BOUND = 0.1f;
+
+    public static final double BRAKE_SPEED_P = 1.5f;
+    public static final double BRAKE_ROTATE_P = 1.5f;
   }
 
   public static class CANNON_PIVOT {
@@ -43,6 +52,8 @@ public final class Constants {
     public static final int NUMBER_OF_MOTORS = 1;
 
     public static final int STALL_LIMIT_AMPS = 15;
+
+    public static final int PEAK_CURRENT_DURATION_MILLISECONDS = 1;
   }
 
   public static class CANNON {
