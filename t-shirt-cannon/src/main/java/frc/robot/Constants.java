@@ -41,7 +41,7 @@ public final class Constants {
     public static final double BRAKE_SPEED_UPPER_BOUND = 0.1f;
 
     public static final double BRAKE_SPEED_P = 1.5f;
-    public static final double BRAKE_ROTATE_P = 1.5f;
+    public static final double BRAKE_ROTATE_P = 1.2f;
   }
 
   public static class CANNON_PIVOT {
