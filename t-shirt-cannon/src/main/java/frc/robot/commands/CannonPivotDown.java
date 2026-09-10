@@ -1,18 +1,17 @@
-package frc.robot.subsystems;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.Robot;
 
-public class CannonPivotUp extends Command{
+public class CannonPivotDown extends Command{
 
-    public CannonPivotUp() {
+    public CannonPivotDown() {
         addRequirements(Robot.cannonPivot);
     }
 
     public void execute() {
-        Robot.cannonPivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_UP_SPEED);
-        System.out.println("Moving up");
+        Robot.cannonPivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_DOWN_SPEED);
     }
 
     public boolean isFinished() {
@@ -21,6 +20,5 @@ public class CannonPivotUp extends Command{
 
     public void end(boolean interrupted) {
         Robot.cannonPivot.set(Constants.CANNON_PIVOT.CANNON_PIVOT_OFF_SPEED);
-        System.out.println("Not moving");
     }
 }

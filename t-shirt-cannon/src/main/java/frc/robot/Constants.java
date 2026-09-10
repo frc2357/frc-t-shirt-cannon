@@ -1,23 +1,14 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot;
 
-/**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants. This class should not be used for any other purpose. All constants should be declared
- * globally (i.e. public static). Do not put anything functional in this class.
- *
- * <p>It is advised to statically import this class (or one of its inner classes) wherever the
- * constants are needed, to reduce verbosity.
- */
 public final class Constants {
 
   public static class CONTROLLER {
     public static final int JOYSTICK_CONTROLLER_PORT = 0;
 
     public static final double CANNON_FIRE_THRESHOLD = 0.8f;
+
+    public static final int CONTROLLER_SPEED_EXPONENT = 2;
+    public static final int CONTROLLER_ROTATE_EXPONENT = 2;
   }
 
   public static class ROBOT {
@@ -37,14 +28,20 @@ public final class Constants {
   }
 
   public static class DRIVE {
-     public static final int NUMBER_OF_MOTORS_PER_SIDE = 1;
-     public static final int STALL_LIMIT_AMPS = 40;
+    public static final int NUMBER_OF_MOTORS_PER_SIDE = 1;
+    public static final int STALL_LIMIT_AMPS = 40;
 
-     public static final double WHEEL_DIAMETER_CM = 1.91475;
-  }
+    public static final double MAX_SPEED = 0.8f;
+    public static final double MAX_TURN = 0.75f;
 
-  public static class PROGRAM_VISUAL_SIMULATION {
-    public static final int GYRO_SIM_CHANNEL = 1;
+    public static final int PEAK_CURRENT_DURATION_MILLISECONDS = 1;
+    public static final int OPEN_LOOP_RAMP_SECONDS = 1;
+
+    public static final double BRAKE_SPEED_LOWER_BOUND = -0.1f;
+    public static final double BRAKE_SPEED_UPPER_BOUND = 0.1f;
+
+    public static final double BRAKE_SPEED_P = 1.5f;
+    public static final double BRAKE_ROTATE_P = 1.5f;
   }
 
   public static class CANNON_PIVOT {
@@ -55,6 +52,8 @@ public final class Constants {
     public static final int NUMBER_OF_MOTORS = 1;
 
     public static final int STALL_LIMIT_AMPS = 15;
+
+    public static final int PEAK_CURRENT_DURATION_MILLISECONDS = 1;
   }
 
   public static class CANNON {
