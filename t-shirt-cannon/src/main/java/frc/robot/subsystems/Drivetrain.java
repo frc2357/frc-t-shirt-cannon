@@ -52,9 +52,4 @@ public class Drivetrain extends SubsystemBase {
   public void arcadeDrive(double speed, double rotate) {
     diffDrive.arcadeDrive(speed, rotate);
   }
-
-  @Override
-  public void periodic() {
-    System.out.println("X: " + getXAccel() + "Y: " + getYAccel() + "Z: " + getZAccel());
-  }
 }
