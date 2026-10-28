@@ -61,6 +61,11 @@ public final class Constants {
   }
 
   public static class PROGRAM {
-  public static final double PROGRAM_UPDATE_TIME_SECS = 0.02;
+    public static final double PROGRAM_UPDATE_TIME_SECS = 0.02;
+  }
+
+  public static class constLED {
+    public static final double UPDATE_TIME_SECONDS = 0.1;
+    public static final int STRIP_LENGTH = 55;
   }
 }
