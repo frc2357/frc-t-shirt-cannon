@@ -65,7 +65,7 @@ public final class Constants {
   }
 
   public static class constLED {
-    public static final double UPDATE_TIME_SECONDS = 0.1;
+    public static final double UPDATE_TIME_SECONDS = 0.005;
     public static final int STRIP_LENGTH = 55;
   }
 }
