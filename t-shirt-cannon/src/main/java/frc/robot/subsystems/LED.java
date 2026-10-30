@@ -13,7 +13,6 @@ public class LED {
     private final Color white = new Color(255, 255, 255);
     private final Color colors[] = {orange, blue, red, white};
     private final int colorsLength = colors.length;
-    private final int amountOfPatterns = 3;
 
     private final AddressableLED LEDinst = new AddressableLED(0);
     private final AddressableLEDBuffer buffer = new AddressableLEDBuffer(constLED.STRIP_LENGTH);
@@ -50,9 +49,9 @@ public class LED {
 
     public void changePattern(boolean increaseValue) {
         if (increaseValue) {
-            pattern = (pattern + 1) % amountOfPatterns;
+            pattern = (pattern + 1) % constLED.AMOUNT_OF_PATTERNS;
         } else if (pattern - 1 < 0) {
-            pattern = amountOfPatterns - 1;
+            pattern = constLED.AMOUNT_OF_PATTERNS - 1;
         } else {
             pattern = pattern - 1;
         }
