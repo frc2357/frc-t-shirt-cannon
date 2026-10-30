@@ -8,15 +8,22 @@ import frc.robot.commands.ArcadeDrive;
 import frc.robot.commands.CannonPivotDown;
 import frc.robot.commands.CannonPivotUp;
 import frc.robot.commands.CannonShoot;
+import frc.robot.commands.LEDtoggle;
+import frc.robot.commands.LEDchangeColor;
+import frc.robot.commands.LEDchangePattern;
+import frc.robot.commands.LEDclock;
 import frc.robot.subsystems.CannonPivot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Cannon;
+import frc.robot.subsystems.LED;
 
 public class Robot extends TimedRobot {
   public final static Drivetrain drivetrain = new Drivetrain();
 
   public final static Cannon cannon = new Cannon();
   public final static CannonPivot cannonPivot = new CannonPivot();
+  public final static LED LED = new LED();
+  public final static LEDclock LEDclock = new LEDclock();
 
   private final static CommandXboxController driverController = new CommandXboxController(Constants.CONTROLLER.JOYSTICK_CONTROLLER_PORT);
 
@@ -29,6 +36,10 @@ public class Robot extends TimedRobot {
     driverController.povUp().whileTrue(new CannonPivotUp());
     driverController.povDown().whileTrue(new CannonPivotDown());
     driverController.rightTrigger(Constants.CONTROLLER.CANNON_FIRE_THRESHOLD).whileTrue(new CannonShoot());
+    driverController.y().whileTrue(new LEDtoggle());
+    driverController.a().whileTrue(new LEDchangeColor());
+    driverController.b().whileTrue(new LEDchangePattern(true));
+    driverController.x().whileTrue(new LEDchangePattern(false));
   }
 
   public Command getArcadeDriveCommand() {
@@ -54,6 +65,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
+    LEDclock.execute();
     CommandScheduler.getInstance().run();
   }
 
