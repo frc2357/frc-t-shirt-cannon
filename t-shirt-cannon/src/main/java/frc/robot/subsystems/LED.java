@@ -19,9 +19,16 @@ public class LED {
     
     private volatile Runnable patternMethod;
     private boolean isON = false;
-    private int colorInt = 0;
-    private int pattern = 0;
+    private int colorInt = 0; //The value of index of colors[] array to be outputed
+    private PTRN pattern = PTRN.FILL;
     private int patternStage = 1;
+
+    public enum PTRN {
+        OFF,
+        FILL,
+        SNAKE,
+        STROBE
+    }
 
     public LED() {
         patternMethod = () -> fullFill(off);
@@ -39,47 +46,42 @@ public class LED {
 
     public void toggle() {
         isON = !isON;
-        updatePattern();
+        changePattern(0);
     }
 
     public void changeColor() {
         colorInt = (colorInt + 1) % colorsLength;
-        updatePattern();
+        changePattern(0);
     }
 
-    public void changePattern(boolean increaseValue) {
-        if (increaseValue) {
-            pattern = (pattern + 1) % constLED.AMOUNT_OF_PATTERNS;
-        } else if (pattern - 1 < 0) {
-            pattern = constLED.AMOUNT_OF_PATTERNS - 1;
-        } else {
-            pattern = pattern - 1;
+    public void changePattern(int modifyAmount) {
+        if (modifyAmount != 0) {
+            PTRN[] possibleValues = PTRN.values();
+            pattern = possibleValues[Math.max(1, (pattern.ordinal() + 1) % possibleValues.length)];
         }
-        System.out.println(pattern);
-        updatePattern();
-    }
-
-    public void updatePattern() {
         Color currentColor = colors[colorInt];
-        if (isON) {
-            switch(pattern) {
-                case 0 : {
+
+        if (!isON) {
+            patternMethod = () -> fullFill(off);
+        } else {
+            switch (pattern) {
+                case FILL : 
                     patternMethod = () -> fullFill(currentColor);
                     break;
-                }
-                case 1 : {
+
+                case SNAKE :
                     patternMethod = () -> {
                         snakeFill(currentColor, (int) Math.floor(buffer.getLength() / 2));
-                    };
+                        };
                     break;
-                }
-                case 2 : {
+                    
+                case STROBE :
                     patternMethod = () -> strobeLight();
                     break;
-                }
+
+                default :
+                    break;
             }
-        } else {
-            patternMethod = () -> fullFill(off);
         }
     }
 
