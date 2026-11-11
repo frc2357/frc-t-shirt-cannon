@@ -11,7 +11,6 @@ import frc.robot.commands.CannonShoot;
 import frc.robot.commands.LEDtoggle;
 import frc.robot.commands.LEDchangeColor;
 import frc.robot.commands.LEDchangePattern;
-import frc.robot.commands.LEDclock;
 import frc.robot.subsystems.CannonPivot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Cannon;
@@ -23,7 +22,6 @@ public class Robot extends TimedRobot {
   public final static Cannon cannon = new Cannon();
   public final static CannonPivot cannonPivot = new CannonPivot();
   public final static LED LED = new LED();
-  public final static LEDclock LEDclock = new LEDclock();
 
   private final static CommandXboxController driverController = new CommandXboxController(Constants.CONTROLLER.JOYSTICK_CONTROLLER_PORT);
 
@@ -65,7 +63,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-    LEDclock.execute();
     CommandScheduler.getInstance().run();
   }
 

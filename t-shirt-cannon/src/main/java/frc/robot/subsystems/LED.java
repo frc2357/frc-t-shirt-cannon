@@ -3,9 +3,10 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.constLED;
 
-public class LED {
+public class LED extends SubsystemBase{
     private final Color off = new Color(0, 0, 0);
     private final Color orange = new Color(255, 165, 0);
     private final Color blue = new Color(0, 0, 255);
@@ -36,7 +37,7 @@ public class LED {
         LEDinst.start();
     }
 
-    public void update() {
+    public void periodic() {
         patternStage = (patternStage + 1) % (buffer.getLength() + 1);
         if (patternStage == 0) {
             patternStage = 1;
